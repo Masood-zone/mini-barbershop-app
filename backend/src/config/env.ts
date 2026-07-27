@@ -1,5 +1,5 @@
-import "dotenv/config";
-import { z } from "zod";
+import "dotenv/config"
+import { z } from "zod"
 
 const envSchema = z.object({
   NODE_ENV: z
@@ -16,13 +16,13 @@ const envSchema = z.object({
     .string()
     .min(32)
     .default("development-only-change-this-secret"),
-});
+})
 
-const parsed = envSchema.safeParse(process.env);
+const parsed = envSchema.safeParse(process.env)
 
 if (!parsed.success) {
-  console.error("Invalid environment configuration", parsed.error.flatten());
-  process.exit(1);
+  console.error("Invalid environment configuration", parsed.error.flatten())
+  process.exit(1)
 }
 
-export const env = parsed.data;
+export const env = parsed.data

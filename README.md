@@ -33,32 +33,43 @@ Requirements:
 
 - Node.js 22 or newer
 - pnpm 11
-- MySQL Community Server 8
+- MySQL Community Server 9.4 locally; SQL remains MySQL 8-compatible where
+  practical
+- MySQL Workbench 8
 
 Frontend:
 
 ```powershell
 cd frontend
-pnpm install
-Copy-Item .env.example .env
-pnpm dev
+pnpm.cmd install
+pnpm.cmd dev
 ```
 
 Backend:
 
 ```powershell
 cd backend
-pnpm install
+pnpm.cmd install
 Copy-Item .env.example .env
-pnpm dev
+pnpm.cmd dev
 ```
 
-Create the database with `backend/database/schema.sql`, then add local seed data
-as needed. Never commit real credentials or production data.
+Create the database with `backend/database/schema.sql`, then follow
+`docs/DATABASE.md` for the least-privilege local user, sample data, and secure
+administrator seed. Never commit real credentials or production data.
+
+## Foundation status
+
+- Phase 1: requirements and business process documented
+- Phase 2: local environment and Git repository initialized
+- Phase 3: canonical database scripts and verification added
+- Phase 4: Express 5 backend foundation and readiness verification added
+
+Authentication and security work begins with Phase 5 only after the backend
+foundation checks have passed locally.
 
 ## Delivery order
 
 Follow the phases in `PLAN.md`: database first, then one backend vertical slice,
 then the matching frontend slice. Do not build all UI screens against invented
 data and connect them later.
-

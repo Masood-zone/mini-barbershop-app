@@ -36,3 +36,18 @@ For every completed screen:
 The exported `code.html` files may be inspected for measurements and intent, but
 they are not React source and must not be pasted into the application.
 
+## Version-one design reconciliation
+
+Some exports show concepts beyond `PLAN.md`. Preserve their useful hierarchy and
+spacing, but do not implement the following version-one features:
+
+- staff or barber management and staff assignment;
+- public customer booking or a client booking application;
+- service categories, visibility, or staff-only services;
+- revenue, payments, advanced analytics, notifications, or exports;
+- appointment statuses other than `Scheduled`, `In Progress`, `Completed`, and
+  `Cancelled`.
+
+When each frontend phase is implemented, remove unsupported controls or replace
+their content with approved data and record any non-obvious screen decision in
+this document.

@@ -1,19 +1,34 @@
-import { app } from "./app.js"
+import type { Server } from "node:http"
 import { db } from "./config/database.js"
-import { env } from "./config/env.js"
+import { closeServer, startServer } from "./server.js"
 
-const server = app.listen(env.PORT, () => {
-  console.info(`TrimTrack API listening on http://localhost:${env.PORT}`)
-})
+let server: Server | undefined
+let isShuttingDown = false
 
 async function shutdown(signal: string) {
+  if (isShuttingDown) {
+    return
+  }
+
+  isShuttingDown = true
   console.info(`${signal} received. Closing TrimTrack API.`)
-  server.close(async () => {
+
+  try {
+    if (server) {
+      await closeServer(server)
+    }
+  } finally {
     await db.end()
-    process.exit(0)
-  })
+  }
 }
 
 process.on("SIGINT", () => void shutdown("SIGINT"))
 process.on("SIGTERM", () => void shutdown("SIGTERM"))
 
+try {
+  server = await startServer()
+} catch (error) {
+  console.error("Unable to start TrimTrack API.", error)
+  await db.end()
+  process.exitCode = 1
+}

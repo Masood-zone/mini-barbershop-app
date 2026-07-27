@@ -14,3 +14,12 @@ export const db = mysql.createPool({
   timezone: "Z",
 })
 
+export async function verifyDatabaseConnection(): Promise<void> {
+  const connection = await db.getConnection()
+
+  try {
+    await connection.ping()
+  } finally {
+    connection.release()
+  }
+}
