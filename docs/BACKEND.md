@@ -66,6 +66,22 @@ Customer listing supports an optional `search` query over name and phone.
 Customer and service deletion return `409` when appointment foreign keys protect
 the record.
 
+## Phases 8–9 appointments and dashboard
+
+Appointments follow the same route, controller, service, repository, and type
+layers. Repository selects join customers and services, then map readable nested
+objects for every list and detail response. Listing accepts optional validated
+`date` and `status` filters. Services validate customer/service references,
+calendar dates, 24-hour times, and the four approved statuses before mutations.
+
+The dashboard repository uses aggregate SQL for customer, service, appointment,
+today, and completed counts. Joined queries return today's chronological
+schedule and the five most recent appointments. Both routers require the shared
+session authentication middleware.
+
+Version one does not reject exact duplicate time slots and does not add status
+transition rules.
+
 ## Health endpoint
 
 `GET /api/health` checks MySQL and returns:
@@ -108,15 +124,4 @@ pnpm.cmd lint
 pnpm.cmd typecheck
 pnpm.cmd test
 pnpm.cmd build
-pnpm.cmd foundation:verify
-pnpm.cmd phases-5-7:verify
 ```
-
-`foundation:verify` creates a disposable MySQL 9.4 instance, applies and checks
-the Phase 3 database, starts the real API with a temporary least-privilege
-database user, calls `/api/health`, and removes all temporary data and
-processes.
-
-`phases-5-7:verify` extends the disposable verification through real login,
-session inspection, customer search/CRUD, service CRUD, conflict handling,
-logout, and post-logout route protection.

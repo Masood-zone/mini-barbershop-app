@@ -67,12 +67,18 @@ administrator seed. Never commit real credentials or production data.
 - Phase 5: session authentication and protected routes added
 - Phase 6: customer backend CRUD and search added
 - Phase 7: service backend CRUD and referenced-delete handling added
+- Phase 8: joined appointment CRUD, filters, and status updates added
+- Phase 9: dashboard aggregates and joined schedule data added
+- Phase 10: React Router, Axios, TanStack Query, and design primitives added
+- Phase 11: session login, protected nested routes, and app shell added
+- Phase 12: API-backed dashboard states and appointment summaries added
+- Phase 13: customer frontend CRUD, search, details, and confirmations added
+- Phase 14: service frontend CRUD, pricing, duration, and confirmations added
+- Phase 15: appointment frontend CRUD, filters, details, and quick status added
 
-Appointment backend work begins with Phase 8 after the authentication, customer,
-and service checks have passed locally.
+The next planned milestone is Phase 16 responsive and accessibility hardening.
 
 ## Delivery order
 
-Follow the phases in `PLAN.md`: database first, then one backend vertical slice,
-then the matching frontend slice. Do not build all UI screens against invented
-data and connect them later.
+Continue numerically from Phase 16 in `PLAN.md`. The Phase 10–15 interfaces are
+connected to the real API rather than local placeholder collections.
