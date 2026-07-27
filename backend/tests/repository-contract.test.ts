@@ -9,7 +9,9 @@ const repositoryDirectory = resolve(
 
 const repositorySources = [
   "auth-repository.ts",
+  "appointment-repository.ts",
   "customer-repository.ts",
+  "dashboard-repository.ts",
   "service-repository.ts",
 ].map((fileName) => ({
   fileName,
@@ -32,7 +34,7 @@ describe("prepared repository statements", () => {
   })
 
   it("keeps customer search and mutations parameterized", () => {
-    const source = repositorySources[1]!.source
+    const source = repositorySources[2]!.source
 
     expect(source).toContain("WHERE full_name LIKE ? OR phone_number LIKE ?")
     expect(source).toContain("VALUES (?, ?, ?, ?)")
@@ -40,9 +42,18 @@ describe("prepared repository statements", () => {
   })
 
   it("keeps service mutations parameterized", () => {
-    const source = repositorySources[2]!.source
+    const source = repositorySources[4]!.source
 
     expect(source).toContain("VALUES (?, ?, ?, ?)")
     expect(source).toContain("WHERE service_id = ?")
+  })
+
+  it("keeps appointment filters and mutations parameterized", () => {
+    const source = repositorySources[1]!.source
+
+    expect(source).toContain("appointments.appointment_date = ?")
+    expect(source).toContain("appointments.status = ?")
+    expect(source).toContain("VALUES (?, ?, ?, ?, ?, ?)")
+    expect(source).toContain("WHERE appointment_id = ?")
   })
 })

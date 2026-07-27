@@ -109,6 +109,57 @@ Create and update body:
 required. `description` may be omitted or `null`. Missing services return `404`;
 services referenced by appointments return `409` on deletion.
 
+## Appointments
+
+Appointments always include nested customer and service summaries, so consumers
+receive names, contact context, price, and duration rather than only foreign-key
+values.
+
+| Method | Path | Behavior |
+| --- | --- | --- |
+| `GET` | `/appointments` | List joined appointments |
+| `GET` | `/appointments?date=YYYY-MM-DD&status=Scheduled` | Filter by date and/or approved status |
+| `GET` | `/appointments/:id` | Fetch one joined appointment |
+| `POST` | `/appointments` | Create and return an appointment |
+| `PUT` | `/appointments/:id` | Replace editable appointment fields |
+| `PATCH` | `/appointments/:id/status` | Change only the appointment status |
+| `DELETE` | `/appointments/:id` | Delete an appointment |
+
+Create and update body:
+
+```json
+{
+  "customerId": 1,
+  "serviceId": 2,
+  "appointmentDate": "2026-07-27",
+  "appointmentTime": "09:30",
+  "status": "Scheduled",
+  "notes": "Customer prefers a low fade."
+}
+```
+
+`status` defaults to `Scheduled` when creating. Allowed values are `Scheduled`,
+`In Progress`, `Completed`, and `Cancelled`. Dates use `YYYY-MM-DD`; times use
+24-hour `HH:mm` or `HH:mm:ss`. Missing customer or service references return
+`400`. Exact duplicate time slots are not rejected in version one.
+
+Status-only body:
+
+```json
+{
+  "status": "Completed"
+}
+```
+
+## Dashboard
+
+`GET /dashboard/summary` returns:
+
+- total customers, services, and appointments;
+- today's appointment count and joined appointment list;
+- completed appointment count;
+- the five most recent joined appointments.
+
 ## Foundation
 
 `GET /health` is public and returns API and database readiness. Unknown routes,

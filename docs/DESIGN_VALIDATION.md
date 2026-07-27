@@ -51,3 +51,15 @@ spacing, but do not implement the following version-one features:
 When each frontend phase is implemented, remove unsupported controls or replace
 their content with approved data and record any non-obvious screen decision in
 this document.
+
+## Phase 10–15 reconciliation
+
+- Dashboard revenue, analytics, notification, and staff-oriented controls are
+  replaced by approved customer, service, appointment, and status information.
+- Customer export and membership labels are omitted.
+- Appointment price is displayed only as service context; no tax, payment, or
+  revenue workflow is calculated.
+- Appointment creation starts in `Scheduled`, while edit and quick-status
+  controls expose only the four approved statuses.
+- Desktop tables become structured cards at narrow widths rather than shrinking
+  into horizontally unreadable rows.
