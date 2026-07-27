@@ -64,9 +64,12 @@ administrator seed. Never commit real credentials or production data.
 - Phase 2: local environment and Git repository initialized
 - Phase 3: canonical database scripts and verification added
 - Phase 4: Express 5 backend foundation and readiness verification added
+- Phase 5: session authentication and protected routes added
+- Phase 6: customer backend CRUD and search added
+- Phase 7: service backend CRUD and referenced-delete handling added
 
-Authentication and security work begins with Phase 5 only after the backend
-foundation checks have passed locally.
+Appointment backend work begins with Phase 8 after the authentication, customer,
+and service checks have passed locally.
 
 ## Delivery order
 
