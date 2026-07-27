@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TrimTrack Dashboard | Barber Management</title>
+<!-- Google Fonts: Raleway & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Raleway:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#bfc9bd",
+                    "secondary-fixed-dim": "#c3c7cb",
+                    "on-tertiary-container": "#9dd5ff",
+                    "on-background": "#131b2e",
+                    "surface-container-highest": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#eef0ff",
+                    "on-error": "#ffffff",
+                    "status-pending": "#f59e0b",
+                    "tertiary": "#004565",
+                    "on-surface": "#131b2e",
+                    "secondary": "#5a5f62",
+                    "surface-container-high": "#e2e7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#404940",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-container": "#005e87",
+                    "on-tertiary-fixed": "#001e2f",
+                    "primary": "#004c22",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eaedff",
+                    "inverse-surface": "#283044",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#1f6c3a",
+                    "primary-fixed": "#a6f4b5",
+                    "primary-container": "#166534",
+                    "status-cancelled": "#ef4444",
+                    "status-confirmed": "#22c55e",
+                    "surface": "#faf8ff",
+                    "status-no-show": "#64748b",
+                    "surface-variant": "#dae2fd",
+                    "on-primary-container": "#93e0a2",
+                    "on-secondary-container": "#5e6367",
+                    "tertiary-fixed": "#c9e6ff",
+                    "on-primary-fixed": "#00210b",
+                    "secondary-fixed": "#dfe3e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#8bd79b",
+                    "status-in-progress": "#3b82f6",
+                    "secondary-container": "#dce0e4",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "inverse-primary": "#8bd79b",
+                    "on-secondary-fixed": "#171c1f",
+                    "surface-dim": "#d2d9f4",
+                    "on-secondary-fixed-variant": "#43474b",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "surface-container-low": "#f2f3ff",
+                    "outline": "#707a6f",
+                    "on-primary-fixed-variant": "#005226",
+                    "background": "#faf8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-sm": "1rem",
+                    "section-gap": "4rem",
+                    "gutter-lg": "2rem",
+                    "gutter-md": "1.5rem",
+                    "reading-max": "672px",
+                    "container-max": "1280px",
+                    "admin-max": "1600px"
+            },
+            "fontFamily": {
+                    "section-title": ["Raleway"],
+                    "body-sm": ["Inter"],
+                    "hero": ["Raleway"],
+                    "hero-mobile": ["Raleway"],
+                    "card-title": ["Inter"],
+                    "page-title": ["Raleway"],
+                    "body": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "section-title": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "hero": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "hero-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "card-title": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "page-title": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body": ["16px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-section-title { font-family: 'Raleway', sans-serif; }
+        .font-page-title { font-family: 'Raleway', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Sidebar Navigation (Admin Shell) -->
+<aside class="w-[280px] h-full fixed left-0 top-0 hidden lg:flex flex-col bg-surface border-r border-outline-variant p-4">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="content_cut">content_cut</span>
+</div>
+<div>
+<h1 class="font-section-title text-section-title font-bold text-primary">TrimTrack</h1>
+<p class="text-[10px] uppercase tracking-widest text-secondary font-medium">Barber Management</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container transition-all opacity-90 scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="content_cut">content_cut</span>
+<span class="font-label-md text-label-md">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Appointments</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:ml-[280px] min-h-screen pb-20 lg:pb-0">
+<!-- Top Navigation (Mobile & Tablet) -->
+<header class="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant shadow-sm lg:shadow-none">
+<div class="flex justify-between items-center h-16 px-gutter-sm lg:px-gutter-lg w-full max-w-admin-max mx-auto">
+<div class="flex items-center gap-3 lg:hidden">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+<span class="font-section-title text-section-title font-bold text-primary">TrimTrack</span>
+</div>
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant w-96">
+<span class="material-symbols-outlined text-secondary text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full outline-none" placeholder="Search appointments or clients..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+<button class="p-2 text-secondary hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<section class="p-gutter-sm lg:p-gutter-lg max-w-admin-max mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h2 class="font-page-title text-page-title text-on-surface">Dashboard</h2>
+<p class="text-secondary font-body mt-1" id="current-date">Tuesday, October 24, 2023</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    Create Appointment
+                </button>
+</div>
+<!-- Bento Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!-- Stat Card 1 -->
+<div class="bg-surface p-6 rounded-xl border border-outline-variant flex items-center gap-4 hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<div>
+<p class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Total Customers</p>
+<p class="text-2xl font-bold text-on-surface">1,284</p>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface p-6 rounded-xl border border-outline-variant flex items-center gap-4 hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="content_cut">content_cut</span>
+</div>
+<div>
+<p class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Total Services</p>
+<p class="text-2xl font-bold text-on-surface">24</p>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface p-6 rounded-xl border border-outline-variant flex items-center gap-4 hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+</div>
+<div>
+<p class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Today's Appts</p>
+<p class="text-2xl font-bold text-on-surface">12</p>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface p-6 rounded-xl border border-outline-variant flex items-center gap-4 hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 rounded-lg bg-status-confirmed/10 flex items-center justify-center text-status-confirmed">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Completed</p>
+<p class="text-2xl font-bold text-on-surface">8</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Appointments List -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-surface border border-outline-variant rounded-2xl overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-section-title text-section-title">Today's Schedule</h3>
+<div class="flex items-center gap-2 text-secondary text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+<span>Filter</span>
+</div>
+</div>
+<!-- Desktop Table View -->
+<div class="hidden md:block overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-secondary font-label-md text-xs uppercase tracking-widest">
+<tr>
+<th class="px-6 py-3 font-medium">Time</th>
+<th class="px-6 py-3 font-medium">Customer</th>
+<th class="px-6 py-3 font-medium">Service</th>
+<th class="px-6 py-3 font-medium">Status</th>
+<th class="px-6 py-3 font-medium">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-medium text-primary">09:00 AM</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-xs font-bold">JD</div>
+<span class="font-medium">James Dalton</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-secondary">Classic Fade + Beard</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-status-confirmed/10 text-status-confirmed text-[10px] font-bold uppercase tracking-wider">Confirmed</span>
+</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-medium text-primary">10:30 AM</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-xs font-bold">MK</div>
+<span class="font-medium">Marcus Knight</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-secondary">Executive Trim</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-status-in-progress/10 text-status-in-progress text-[10px] font-bold uppercase tracking-wider">In Progress</span>
+</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-medium text-primary">11:15 AM</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-xs font-bold">RH</div>
+<span class="font-medium">Robert Hayes</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-secondary">Head Shave</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-status-pending/10 text-status-pending text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Mobile List View -->
+<div class="md:hidden p-4 space-y-4">
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-primary">09:00 AM</span>
+<span class="px-2 py-0.5 rounded-md bg-status-confirmed/10 text-status-confirmed text-[10px] font-bold uppercase">Confirmed</span>
+</div>
+<h4 class="font-bold">James Dalton</h4>
+<p class="text-xs text-secondary mb-3">Classic Fade + Beard</p>
+<button class="w-full py-2 bg-surface text-primary border border-primary/20 rounded-lg text-xs font-bold uppercase">View Details</button>
+</div>
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-primary">10:30 AM</span>
+<span class="px-2 py-0.5 rounded-md bg-status-in-progress/10 text-status-in-progress text-[10px] font-bold uppercase">In Progress</span>
+</div>
+<h4 class="font-bold">Marcus Knight</h4>
+<p class="text-xs text-secondary mb-3">Executive Trim</p>
+<button class="w-full py-2 bg-surface text-primary border border-primary/20 rounded-lg text-xs font-bold uppercase">View Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Featured Cards -->
+<div class="space-y-6">
+<!-- Next Appointment Card -->
+<div class="bg-primary text-on-primary p-8 rounded-2xl relative overflow-hidden shadow-lg group">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4 text-on-primary-container bg-on-primary-container/20 w-fit px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-xs" data-icon="auto_awesome">auto_awesome</span>
+                                Up Next
+                            </div>
+<p class="text-4xl font-bold mb-1">01:45 PM</p>
+<h3 class="text-xl font-bold mb-4">William Bennett</h3>
+<div class="space-y-3 mb-6">
+<div class="flex items-center gap-3 text-on-primary/80">
+<span class="material-symbols-outlined text-sm" data-icon="history_edu">history_edu</span>
+<span class="text-sm font-body">Scissor Cut &amp; Style</span>
+</div>
+<div class="flex items-center gap-3 text-on-primary/80">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
+<span class="text-sm font-body">45 Minutes</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-primary py-2 rounded-lg font-bold text-sm transition-transform active:scale-95">Check In</button>
+<button class="p-2 border border-white/20 rounded-lg transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="phone">phone</span>
+</button>
+</div>
+</div>
+<!-- Subtle Background Pattern -->
+<div class="absolute -bottom-10 -right-10 opacity-10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[12rem]" data-icon="content_cut">content_cut</span>
+</div>
+</div>
+<!-- Client Insights Card -->
+<div class="bg-surface border border-outline-variant rounded-2xl p-6">
+<h3 class="font-section-title text-lg mb-4">Quick Insights</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="trending_up">trending_up</span>
+<span class="text-sm">Revenue Today</span>
+</div>
+<span class="font-bold">$428.50</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="person_add">person_add</span>
+<span class="text-sm">New Clients</span>
+</div>
+<span class="font-bold">+3</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="cancel">cancel</span>
+<span class="text-sm">Cancellations</span>
+</div>
+<span class="font-bold">1</span>
+</div>
+</div>
+<button class="w-full mt-6 text-sm font-bold text-primary hover:underline">View Analytics Report</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile Shell) -->
+<nav class="fixed bottom-0 left-0 w-full h-16 bg-surface border-t border-outline-variant flex justify-around items-center lg:hidden z-50 shadow-lg">
+<a class="flex flex-col items-center justify-center text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span class="font-label-md text-[10px] mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-[10px] mt-1">Clients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-label-md text-[10px] mt-1">More</span>
+</a>
+</nav>
+<script>
+        // Simple logic to display today's date
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('en-US', options);
+            document.getElementById('current-date').textContent = dateStr;
+        }
+        updateDate();
+
+        // Optional: Hover interaction for table rows
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                // Potential navigation or modal trigger
+                console.log('Row clicked');
+            });
+        });
+    </script>
+</body></html>

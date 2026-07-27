@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Appointment - TrimTrack</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Raleway:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf8ff;
+        }
+        .font-section-title { font-family: 'Raleway', sans-serif; }
+        .font-page-title { font-family: 'Raleway', sans-serif; }
+        
+        /* Custom Scrollbar for better UX */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bfc9bd; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #707a6f; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#bfc9bd",
+                    "secondary-fixed-dim": "#c3c7cb",
+                    "on-tertiary-container": "#9dd5ff",
+                    "on-background": "#131b2e",
+                    "surface-container-highest": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#eef0ff",
+                    "on-error": "#ffffff",
+                    "status-pending": "#f59e0b",
+                    "tertiary": "#004565",
+                    "on-surface": "#131b2e",
+                    "secondary": "#5a5f62",
+                    "surface-container-high": "#e2e7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#404940",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-container": "#005e87",
+                    "on-tertiary-fixed": "#001e2f",
+                    "primary": "#004c22",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eaedff",
+                    "inverse-surface": "#283044",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#1f6c3a",
+                    "primary-fixed": "#a6f4b5",
+                    "primary-container": "#166534",
+                    "status-cancelled": "#ef4444",
+                    "status-confirmed": "#22c55e",
+                    "surface": "#faf8ff",
+                    "status-no-show": "#64748b",
+                    "surface-variant": "#dae2fd",
+                    "on-primary-container": "#93e0a2",
+                    "on-secondary-container": "#5e6367",
+                    "tertiary-fixed": "#c9e6ff",
+                    "on-primary-fixed": "#00210b",
+                    "secondary-fixed": "#dfe3e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#8bd79b",
+                    "status-in-progress": "#3b82f6",
+                    "secondary-container": "#dce0e4",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "inverse-primary": "#8bd79b",
+                    "on-secondary-fixed": "#171c1f",
+                    "surface-dim": "#d2d9f4",
+                    "on-secondary-fixed-variant": "#43474b",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "surface-container-low": "#f2f3ff",
+                    "outline": "#707a6f",
+                    "on-primary-fixed-variant": "#005226",
+                    "background": "#faf8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-sm": "1rem",
+                    "section-gap": "4rem",
+                    "gutter-lg": "2rem",
+                    "gutter-md": "1.5rem",
+                    "reading-max": "672px",
+                    "container-max": "1280px",
+                    "admin-max": "1600px"
+            },
+            "fontFamily": {
+                    "section-title": ["Raleway"],
+                    "body-sm": ["Inter"],
+                    "hero": ["Raleway"],
+                    "hero-mobile": ["Raleway"],
+                    "card-title": ["Inter"],
+                    "page-title": ["Raleway"],
+                    "body": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "section-title": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "hero": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "hero-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "card-title": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "page-title": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body": ["16px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="min-h-screen">
+<!-- Top Navigation Bar (Mobile only variant) -->
+<header class="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center h-16 px-gutter-sm lg:px-gutter-lg w-full max-w-admin-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-section-title text-section-title font-bold text-primary lg:hidden">TrimTrack</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex bg-secondary-container rounded-full px-4 py-1.5 items-center gap-2">
+<span class="material-symbols-outlined text-on-secondary-container text-[18px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search appointments..." type="text"/>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-high p-2 rounded-full">dark_mode</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-high p-2 rounded-full">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-high p-2 rounded-full">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Sidebar (Desktop Navigation Anchor) -->
+<aside class="w-[280px] h-full fixed left-0 top-0 hidden lg:flex flex-col bg-surface border-r border-outline-variant p-4">
+<div class="flex flex-col gap-1 mb-8 px-4">
+<span class="font-section-title text-section-title font-bold text-primary">TrimTrack</span>
+<span class="font-label-md text-label-md text-secondary">Barber Management</span>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">content_cut</span>
+<span class="font-label-md text-label-md">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container opacity-90 scale-[0.98] transition-all" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md font-bold">Appointments</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-[280px] min-h-screen p-gutter-sm lg:p-gutter-lg bg-background">
+<div class="max-w-4xl mx-auto">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-secondary mb-4">
+<span class="font-label-md text-label-md">Appointments</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-md text-label-md text-primary font-bold">Create Appointment</span>
+</nav>
+<!-- Page Header -->
+<header class="mb-8">
+<h1 class="font-page-title text-page-title text-on-background">New Appointment</h1>
+<p class="text-body-sm text-secondary">Schedule a new session for a customer and assign a service.</p>
+</header>
+<!-- Form Grid -->
+<form class="grid grid-cols-1 md:grid-cols-12 gap-gutter-md" id="appointment-form">
+<!-- Left Column: Selection Details -->
+<div class="md:col-span-7 flex flex-col gap-gutter-md">
+<!-- Customer Selection Card -->
+<section class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant shadow-sm transition-all hover:shadow-md">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">person</span>
+<h2 class="font-card-title text-card-title text-on-background">Customer Details</h2>
+</div>
+<div class="space-y-4">
+<div class="relative">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1.5 ml-1">Select Customer</label>
+<div class="flex items-center">
+<select class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 text-body-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none" required="">
+<option disabled="" selected="" value="">Search or select a customer</option>
+<option value="1">James Wilson (james.w@email.com)</option>
+<option value="2">Marcus Aurelius (the.emperor@rome.gov)</option>
+<option value="3">Elena Rodriguez (elena.r@webmail.com)</option>
+<option value="new">+ Add New Customer</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-secondary">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-primary-container/10 rounded-lg border border-primary-container/20">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-body-sm text-on-primary-container leading-tight">Frequent customer. Last visit: 12 days ago.</p>
+</div>
+</div>
+</section>
+<!-- Service Selection Card -->
+<section class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant shadow-sm transition-all hover:shadow-md">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">content_cut</span>
+<h2 class="font-card-title text-card-title text-on-background">Service Selection</h2>
+</div>
+<div class="space-y-6">
+<div class="relative">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1.5 ml-1">Select Service</label>
+<div class="flex items-center">
+<select class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 text-body-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none" id="service-select" required="">
+<option disabled="" selected="" value="">Choose a service</option>
+<option data-duration="45" data-price="35" value="fade">Executive Fade &amp; Styling</option>
+<option data-duration="30" data-price="25" value="beard">Beard Grooming &amp; Sculpting</option>
+<option data-duration="75" data-price="55" value="full">The TrimTrack Deluxe Experience</option>
+<option data-duration="20" data-price="20" value="buzz">Standard Buzz Cut</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-secondary">expand_more</span>
+</div>
+</div>
+<!-- Service Summary (Dynamic) -->
+<div class="hidden animate-in fade-in slide-in-from-top-2 duration-300" id="service-summary">
+<div class="bg-surface-container rounded-xl p-4 border border-outline-variant flex justify-between items-center">
+<div>
+<h3 class="font-card-title text-card-title text-primary" id="summary-name">--</h3>
+<div class="flex gap-4 mt-1">
+<span class="flex items-center gap-1 text-label-md font-medium text-secondary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span id="summary-duration">--</span>
+</span>
+<span class="flex items-center gap-1 text-label-md font-medium text-secondary">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+<span id="summary-price">--</span>
+</span>
+</div>
+</div>
+<button class="text-secondary hover:text-error transition-colors" onclick="resetService()" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Notes -->
+<section class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant shadow-sm transition-all hover:shadow-md">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">notes</span>
+<h2 class="font-card-title text-card-title text-on-background">Additional Notes (Optional)</h2>
+</div>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 text-body-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Add any special instructions or customer preferences..." rows="3"></textarea>
+</section>
+</div>
+<!-- Right Column: Time & Status -->
+<div class="md:col-span-5 flex flex-col gap-gutter-md">
+<!-- Schedule Card -->
+<section class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant shadow-sm transition-all hover:shadow-md sticky top-24">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+<h2 class="font-card-title text-card-title text-on-background">Schedule &amp; Status</h2>
+</div>
+<div class="space-y-4">
+<!-- Date Picker -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1.5 ml-1">Appointment Date</label>
+<div class="relative">
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 text-body-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all" required="" type="date"/>
+</div>
+</div>
+<!-- Time Picker -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1.5 ml-1">Start Time</label>
+<div class="relative">
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 text-body-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all" required="" type="time"/>
+</div>
+</div>
+<!-- Status (Default: Scheduled) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1.5 ml-1">Status</label>
+<div class="flex items-center bg-secondary-container/50 px-4 py-3 rounded-lg border border-outline-variant">
+<span class="flex-grow text-body-sm font-medium text-on-secondary-container">Scheduled</span>
+<span class="material-symbols-outlined text-status-confirmed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="text-[10px] mt-1 text-secondary px-1 uppercase tracking-wider font-bold">Read-only upon creation</p>
+</div>
+<hr class="border-outline-variant my-6"/>
+<!-- Summary Action Box -->
+<div class="bg-surface-bright rounded-xl p-4 border border-outline-variant/50 space-y-2">
+<div class="flex justify-between text-label-md">
+<span class="text-secondary">Subtotal</span>
+<span class="font-bold text-on-surface" id="aside-price">$0.00</span>
+</div>
+<div class="flex justify-between text-label-md">
+<span class="text-secondary">Tax (8%)</span>
+<span class="font-bold text-on-surface" id="aside-tax">$0.00</span>
+</div>
+<div class="flex justify-between pt-2 border-t border-outline-variant/30">
+<span class="font-bold text-on-surface">Estimated Total</span>
+<span class="font-bold text-primary text-lg" id="aside-total">$0.00</span>
+</div>
+</div>
+<!-- Buttons -->
+<div class="grid grid-cols-2 gap-3 mt-6">
+<button class="px-4 py-3 rounded-lg border border-outline text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95" type="button">
+                                    Cancel
+                                </button>
+<button class="px-4 py-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold shadow-md hover:opacity-90 active:scale-95 transition-all" type="submit">
+                                    Save
+                                </button>
+</div>
+</div>
+</section>
+</div>
+</form>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="lg:hidden docked full-width bottom-0 fixed z-50 bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event</span>
+<span class="font-label-md text-label-md-mobile">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md-mobile">Clients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-label-md text-label-md-mobile">More</span>
+</a>
+</nav>
+<script>
+        const serviceSelect = document.getElementById('service-select');
+        const serviceSummary = document.getElementById('service-summary');
+        const summaryName = document.getElementById('summary-name');
+        const summaryDuration = document.getElementById('summary-duration');
+        const summaryPrice = document.getElementById('summary-price');
+        
+        const asidePrice = document.getElementById('aside-price');
+        const asideTax = document.getElementById('aside-tax');
+        const asideTotal = document.getElementById('aside-total');
+
+        serviceSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption.value) {
+                const name = selectedOption.text;
+                const price = parseFloat(selectedOption.getAttribute('data-price'));
+                const duration = selectedOption.getAttribute('data-duration');
+
+                // Update Summary UI
+                summaryName.textContent = name;
+                summaryDuration.textContent = duration + ' mins';
+                summaryPrice.textContent = '$' + price.toFixed(2);
+                serviceSummary.classList.remove('hidden');
+
+                // Update Pricing Box
+                const tax = price * 0.08;
+                const total = price + tax;
+                asidePrice.textContent = '$' + price.toFixed(2);
+                asideTax.textContent = '$' + tax.toFixed(2);
+                asideTotal.textContent = '$' + total.toFixed(2);
+            }
+        });
+
+        function resetService() {
+            serviceSelect.selectedIndex = 0;
+            serviceSummary.classList.add('hidden');
+            asidePrice.textContent = '$0.00';
+            asideTax.textContent = '$0.00';
+            asideTotal.textContent = '$0.00';
+        }
+
+        // Form Intercept for demo
+        document.getElementById('appointment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Appointment Created!';
+                btn.classList.replace('bg-primary', 'bg-status-confirmed');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.replace('bg-status-confirmed', 'bg-primary');
+                }, 2000);
+            }, 1000);
+        });
+    </script>
+</body></html>

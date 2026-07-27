@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Loading - TrimTrack</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Raleway:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        @keyframes skeleton-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-skeleton {
+            animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#004565",
+                      "secondary-fixed": "#dfe3e7",
+                      "status-cancelled": "#ef4444",
+                      "status-pending": "#f59e0b",
+                      "status-in-progress": "#3b82f6",
+                      "primary-fixed-dim": "#8bd79b",
+                      "on-secondary-fixed": "#171c1f",
+                      "on-secondary-fixed-variant": "#43474b",
+                      "on-secondary-container": "#5e6367",
+                      "on-surface": "#131b2e",
+                      "surface-container": "#eaedff",
+                      "inverse-on-surface": "#eef0ff",
+                      "outline-variant": "#bfc9bd",
+                      "on-surface-variant": "#404940",
+                      "surface-tint": "#1f6c3a",
+                      "on-tertiary-fixed": "#001e2f",
+                      "surface-bright": "#faf8ff",
+                      "secondary": "#5a5f62",
+                      "on-background": "#131b2e",
+                      "primary": "#004c22",
+                      "on-tertiary-fixed-variant": "#004c6e",
+                      "surface-container-low": "#f2f3ff",
+                      "inverse-surface": "#283044",
+                      "on-primary-fixed": "#00210b",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#e2e7ff",
+                      "surface-container-highest": "#dae2fd",
+                      "surface-dim": "#d2d9f4",
+                      "inverse-primary": "#8bd79b",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed-dim": "#89ceff",
+                      "secondary-fixed-dim": "#c3c7cb",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#dce0e4",
+                      "surface": "#faf8ff",
+                      "background": "#faf8ff",
+                      "primary-fixed": "#a6f4b5",
+                      "outline": "#707a6f",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#005226",
+                      "on-primary-container": "#93e0a2",
+                      "status-no-show": "#64748b",
+                      "surface-variant": "#dae2fd",
+                      "tertiary-container": "#005e87",
+                      "on-tertiary-container": "#9dd5ff",
+                      "on-error-container": "#93000a",
+                      "status-confirmed": "#22c55e",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#c9e6ff",
+                      "primary-container": "#166534",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-lg": "2rem",
+                      "gutter-sm": "1rem",
+                      "gutter-md": "1.5rem",
+                      "reading-max": "672px",
+                      "container-max": "1280px",
+                      "admin-max": "1600px",
+                      "section-gap": "4rem"
+              },
+              "fontFamily": {
+                      "hero-mobile": ["Raleway"],
+                      "card-title": ["Inter"],
+                      "body": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "section-title": ["Raleway"],
+                      "page-title": ["Raleway"],
+                      "hero": ["Raleway"]
+              },
+              "fontSize": {
+                      "hero-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "card-title": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "body": ["16px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "section-title": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "page-title": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "hero": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Shell: Sidebar Navigation (Fully Rendered) -->
+<aside class="w-[280px] h-full fixed left-0 top-0 hidden lg:flex flex-col bg-surface border-r border-outline-variant p-4 z-50">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">content_cut</span>
+</div>
+<div>
+<h1 class="font-section-title text-section-title font-bold text-primary">TrimTrack</h1>
+<p class="text-[10px] font-label-md uppercase tracking-wider text-secondary">Barber Management</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container transition-all scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">content_cut</span>
+<span class="font-label-md">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md">Appointments</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-[280px] min-h-screen flex flex-col">
+<!-- Shell: Top Navigation (Fully Rendered) -->
+<header class="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant shadow-sm h-16">
+<div class="flex justify-between items-center h-full px-gutter-sm lg:px-gutter-lg max-w-admin-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-page-title text-page-title text-primary hidden lg:block">Dashboard</h2>
+<h2 class="font-section-title text-section-title font-bold text-primary lg:hidden">TrimTrack</h2>
+</div>
+<div class="flex items-center gap-4 flex-1 justify-end">
+<div class="hidden md:flex relative max-w-xs w-full">
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-1.5 pl-10 pr-4 text-body-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Search..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary scale-75">search</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high text-secondary transition-colors">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-secondary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="flex items-center gap-2 p-1 rounded-full hover:bg-surface-container-high text-secondary transition-colors ml-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas Content: Loading Skeletons -->
+<div class="p-gutter-sm lg:p-gutter-lg max-w-admin-max mx-auto w-full flex-1">
+<!-- Summary Grid Skeletons -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!-- Skeleton Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 flex items-center gap-4 animate-skeleton">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high"></div>
+<div class="space-y-2 flex-1">
+<div class="h-4 bg-surface-container-high rounded w-24"></div>
+<div class="h-6 bg-surface-container-highest rounded w-16"></div>
+</div>
+</div>
+<!-- Skeleton Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 flex items-center gap-4 animate-skeleton" style="animation-delay: 0.1s;">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high"></div>
+<div class="space-y-2 flex-1">
+<div class="h-4 bg-surface-container-high rounded w-20"></div>
+<div class="h-6 bg-surface-container-highest rounded w-12"></div>
+</div>
+</div>
+<!-- Skeleton Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 flex items-center gap-4 animate-skeleton" style="animation-delay: 0.2s;">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high"></div>
+<div class="space-y-2 flex-1">
+<div class="h-4 bg-surface-container-high rounded w-28"></div>
+<div class="h-6 bg-surface-container-highest rounded w-20"></div>
+</div>
+</div>
+<!-- Skeleton Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 flex items-center gap-4 animate-skeleton" style="animation-delay: 0.3s;">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high"></div>
+<div class="space-y-2 flex-1">
+<div class="h-4 bg-surface-container-high rounded w-16"></div>
+<div class="h-6 bg-surface-container-highest rounded w-14"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Schedule Section Skeletons -->
+<div class="lg:col-span-8">
+<div class="flex items-center justify-between mb-6">
+<div class="h-8 bg-surface-container-high rounded w-48 animate-skeleton"></div>
+<div class="h-10 bg-surface-container-high rounded-lg w-32 animate-skeleton"></div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden">
+<div class="divide-y divide-outline-variant">
+<!-- Skeleton Row 1 -->
+<div class="p-5 flex items-center gap-6 animate-skeleton">
+<div class="w-16 flex flex-col items-center gap-1">
+<div class="h-5 bg-surface-container-high rounded w-10"></div>
+<div class="h-4 bg-surface-container-low rounded w-8"></div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high"></div>
+<div class="flex-1 space-y-2">
+<div class="h-5 bg-surface-container-high rounded w-40"></div>
+<div class="h-4 bg-surface-container-low rounded w-24"></div>
+</div>
+<div class="h-6 bg-surface-container-high rounded-full w-24"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high"></div>
+</div>
+<!-- Skeleton Row 2 -->
+<div class="p-5 flex items-center gap-6 animate-skeleton" style="animation-delay: 0.1s;">
+<div class="w-16 flex flex-col items-center gap-1">
+<div class="h-5 bg-surface-container-high rounded w-10"></div>
+<div class="h-4 bg-surface-container-low rounded w-8"></div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high"></div>
+<div class="flex-1 space-y-2">
+<div class="h-5 bg-surface-container-high rounded w-32"></div>
+<div class="h-4 bg-surface-container-low rounded w-20"></div>
+</div>
+<div class="h-6 bg-surface-container-high rounded-full w-20"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high"></div>
+</div>
+<!-- Skeleton Row 3 -->
+<div class="p-5 flex items-center gap-6 animate-skeleton" style="animation-delay: 0.2s;">
+<div class="w-16 flex flex-col items-center gap-1">
+<div class="h-5 bg-surface-container-high rounded w-10"></div>
+<div class="h-4 bg-surface-container-low rounded w-8"></div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high"></div>
+<div class="flex-1 space-y-2">
+<div class="h-5 bg-surface-container-high rounded w-48"></div>
+<div class="h-4 bg-surface-container-low rounded w-28"></div>
+</div>
+<div class="h-6 bg-surface-container-high rounded-full w-24"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high"></div>
+</div>
+<!-- Skeleton Row 4 -->
+<div class="p-5 flex items-center gap-6 animate-skeleton" style="animation-delay: 0.3s;">
+<div class="w-16 flex flex-col items-center gap-1">
+<div class="h-5 bg-surface-container-high rounded w-10"></div>
+<div class="h-4 bg-surface-container-low rounded w-8"></div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high"></div>
+<div class="flex-1 space-y-2">
+<div class="h-5 bg-surface-container-high rounded w-36"></div>
+<div class="h-4 bg-surface-container-low rounded w-24"></div>
+</div>
+<div class="h-6 bg-surface-container-high rounded-full w-20"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panels Skeletons -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Up Next Skeleton -->
+<section>
+<div class="h-6 bg-surface-container-high rounded w-32 mb-4 animate-skeleton"></div>
+<div class="bg-primary-container/10 border border-primary-container/20 rounded-2xl p-6 animate-skeleton">
+<div class="flex justify-between items-start mb-6">
+<div class="space-y-3">
+<div class="h-6 bg-primary-container/20 rounded w-40"></div>
+<div class="h-4 bg-primary-container/10 rounded w-24"></div>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container/20"></div>
+</div>
+<div class="flex items-center gap-4 py-4 border-y border-primary-container/10 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20"></div>
+<div class="flex-1 space-y-2">
+<div class="h-4 bg-primary-container/20 rounded w-24"></div>
+<div class="h-3 bg-primary-container/10 rounded w-16"></div>
+</div>
+</div>
+<div class="h-10 bg-primary-container/30 rounded-lg w-full"></div>
+</div>
+</section>
+<!-- Quick Insights Skeleton -->
+<section>
+<div class="h-6 bg-surface-container-high rounded w-36 mb-4 animate-skeleton" style="animation-delay: 0.4s;"></div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 space-y-6 animate-skeleton" style="animation-delay: 0.4s;">
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-2 h-10 bg-status-confirmed rounded-full opacity-30"></div>
+<div class="flex-1 space-y-2">
+<div class="h-4 bg-surface-container-high rounded w-20"></div>
+<div class="h-3 bg-surface-container-low rounded w-full"></div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-2 h-10 bg-status-in-progress rounded-full opacity-30"></div>
+<div class="flex-1 space-y-2">
+<div class="h-4 bg-surface-container-high rounded w-24"></div>
+<div class="h-3 bg-surface-container-low rounded w-3/4"></div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-2 h-10 bg-status-pending rounded-full opacity-30"></div>
+<div class="flex-1 space-y-2">
+<div class="h-4 bg-surface-container-high rounded w-16"></div>
+<div class="h-3 bg-surface-container-low rounded w-5/6"></div>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant">
+<div class="h-4 bg-surface-container-high rounded w-28 mx-auto"></div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Shell: Bottom Navigation (Fully Rendered for Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant z-50 shadow-lg h-16 flex justify-around items-center pb-safe">
+<a class="flex flex-col items-center justify-center text-primary transition-transform scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-md text-[10px]">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-[10px]">Clients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-label-md text-[10px]">More</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for sidebar tabs
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!this.classList.contains('bg-primary-container')) {
+                    // This is just a UI placeholder effect
+                    document.querySelectorAll('nav a').forEach(l => {
+                        l.classList.remove('bg-primary-container', 'text-on-primary-container', 'scale-[0.98]');
+                        l.classList.add('text-secondary');
+                    });
+                    this.classList.remove('text-secondary');
+                    this.classList.add('bg-primary-container', 'text-on-primary-container', 'scale-[0.98]');
+                }
+            });
+        });
+    </script>
+</body></html>
