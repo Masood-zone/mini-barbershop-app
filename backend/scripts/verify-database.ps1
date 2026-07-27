@@ -1,5 +1,6 @@
 param(
-  [switch]$VerifyApi
+  [switch]$VerifyApi,
+  [switch]$VerifyCrudApi
 )
 
 $ErrorActionPreference = "Stop"
@@ -207,7 +208,7 @@ try {
     Pop-Location
   }
 
-  if ($VerifyApi) {
+  if ($VerifyApi -or $VerifyCrudApi) {
     $apiPort = 3500
     while (
       Get-NetTCPConnection -LocalPort $apiPort -ErrorAction SilentlyContinue
@@ -276,6 +277,21 @@ try {
     Write-Output (
       "API: startup and GET /api/health passed with database=connected"
     )
+
+    if ($VerifyCrudApi) {
+      $env:VERIFY_API_ORIGIN = "http://127.0.0.1:$apiPort"
+
+      Push-Location $backendRoot
+      try {
+        & pnpm.cmd exec tsx src/scripts/verify-phases-5-7.ts
+        if ($LASTEXITCODE -ne 0) {
+          throw "Phases 5-7 API verification failed."
+        }
+      }
+      finally {
+        Pop-Location
+      }
+    }
   }
 
   $negativePriceRejected = Test-RejectedMySqlOperation -Sql (

@@ -8,6 +8,7 @@
     "db:seed:admin": "tsx src/scripts/seed-admin.ts",
     "db:verify": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/verify-database.ps1",
     "foundation:verify": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/verify-database.ps1 -VerifyApi",
+    "phases-5-7:verify": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/verify-database.ps1 -VerifyCrudApi",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "lint": "eslint .",
