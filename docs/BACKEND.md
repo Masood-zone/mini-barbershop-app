@@ -39,8 +39,8 @@ middleware stack without binding a port.
 5. The not-found handler.
 6. The centralized four-argument error handler.
 
-The default in-memory session store is for local scaffolding only. Persistent
-session storage and authentication behavior belong to Phase 5.
+The default in-memory session store is for local scaffolding only. A persistent
+store is required before any future deployment work.
 
 ## Phase 5 session authentication
 
